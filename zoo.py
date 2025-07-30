@@ -1,3 +1,7 @@
+import json
+from pathlib import Path
+
+
 class Animal():
     def __init__(self, name, age):
         pass
@@ -42,3 +46,103 @@ class Reptile(Animal):
         print("Есть рептилии со смешанным типом питания, которые употребляют как растительную, так и животную пищу")
 
 
+class Employee():
+    pass
+
+
+class Zookeeper():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def __init__(self):
+        pass
+
+    def feeding(self):
+        print("Животные накормлены")
+
+    def cleaning(self):
+        print("Вольеры чисты")
+
+    def monitoring(self):
+        #Пусть функцуия будет фоново включена пока её не отключат
+        print("За животными ведется наблюдение, всё спокойно.")
+
+class Veterinarian():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def healing(self):
+        print("животные здоровы")
+
+class Zoologist():
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def animal_behavior_research(self):
+        print("у прадставителей разных классов могут быть разные повадки")
+
+
+
+class Zoo():
+    def __init__(self, animals_path = "animals.json", employee_path = "employee.json"):
+        self.animals_path = Path(animals_path)
+        self.employee_path = Path(employee_path)
+        self.animals_store = []
+        self.employee_store = []
+
+    def __load_animals_store(self):
+        if self.animals_path.exists():
+            with open(self.animals_path, 'r', encoding ='utf-8') as anst:
+                return json.loads(anst)
+        return []
+
+    def __load_employee_store(self):
+        if self.employee_path.exists():
+            with open(self.employee_path, 'r', encoding='utf-8') as empst:
+                return json.loads(empst)
+
+
+    def __save_animals_store(self):
+        try:
+            with open(self.animals_path,'w',encoding='utf-8') as anst:
+                json.dump(self.animals_store,anst, indent=2, ensure_ascii=False)
+        except Exception:
+            print(f"Ошибка при сохранении")
+
+    def __save_employee_store(self):
+        try:
+            with open(self.employee_path,'w',encoding='utf-8') as anst:
+                json.dump(self.employee_store,anst, indent=2, ensure_ascii=False)
+        except Exception:
+            print(f"Ошибка при сохранении")
+
+
+    def add_animal(self,name, age, special_attribute,animal_type):
+        new_animal = {
+            "name": name,
+            "age": age,
+            "special_attribute": special_attribute
+        }
+        self.animals_store.append(new_animal)
+        self.__save_animals_store()
+        if animal_type == "Bird":
+            new_animal = Bird(name, age, special_attribute)
+        elif animal_type == "Mammal":
+            new_animal = Mammal(name, age, special_attribute)
+        else: new_animal = Reptile(name, age, special_attribute)
+
+    def add_employee(self, name, age, profession):
+        new_employee = {
+            "name": name,
+            "age": age,
+            "profession": profession
+        }
+
+        self.employee_store.append(new_employee)
+        self.__save_employee_store()
+        if profession == "Vet":
+            new_employee = Veterinarian(name, age)
+        elif profession == "Zoologist":
+            new_employee = Zoologist(name, age)
+        else: new_employee =Zookeeper(name, age)
