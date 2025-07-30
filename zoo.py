@@ -46,16 +46,11 @@ class Reptile(Animal):
         print("Есть рептилии со смешанным типом питания, которые употребляют как растительную, так и животную пищу")
 
 
-class Employee():
-    pass
-
 
 class Zookeeper():
     def __init__(self, name, age):
         self.name = name
         self.age = age
-    def __init__(self):
-        pass
 
     def feeding(self):
         print("Животные накормлены")
@@ -88,21 +83,52 @@ class Zoo():
     def __init__(self, animals_path = "animals.json", employee_path = "employee.json"):
         self.animals_path = Path(animals_path)
         self.employee_path = Path(employee_path)
-        self.animals_store = []
-        self.employee_store = []
+        self.animals_store = self.__load_animals_store()
+        self.employee_store = self.__load_employee_store()
+        self.__load_animals_store()
 
     def __load_animals_store(self):
         if self.animals_path.exists():
             with open(self.animals_path, 'r', encoding ='utf-8') as anst:
-                return json.loads(anst)
-        return []
+                employee_store = json.load(anst)
+                return []
+        else:
+            return []
+
 
     def __load_employee_store(self):
         if self.employee_path.exists():
             with open(self.employee_path, 'r', encoding='utf-8') as empst:
-                return json.loads(empst)
+                return json.load(empst)
+        else: return []
+
+    def __make_animal_object(self, animal_store):
+        name = animal_store["name"]
+        age = animal_store["age"]
+        special_attribute = animal_store["special_attribute"]
+        animal_type = animal_store.get("type")
+        if animal_type == "Bird":
+            return Bird(name, age, special_attribute)
+        elif animal_type == "Mammal":
+            return Mammal(name, age, special_attribute)
+        elif animal_type == "Reptile":
+            return Reptile(name, age, special_attribute)
+        else: raise ValueError(f"Неудалось установить тип животного: {animal_type}")
 
 
+    def make_employee_object(self, employee_store):
+        name = employee_store["name"]
+        age = employee_store["age"]
+        profession = employee_store["profession"]
+        emplioyee_type = employee_store.get("profession")
+        if emplioyee_type == "Vet":
+            return Veterinarian(name, age)
+        elif profession == "Zoologist":
+            return Zoologist(name, age)
+        elif emplioyee_type == "Zookeeper":
+            return Zookeeper(name, age)
+        else:
+            raise ValueError(f"Незнакомая профессия: {emplioyee_type}")
     def __save_animals_store(self):
         try:
             with open(self.animals_path,'w',encoding='utf-8') as anst:
@@ -118,7 +144,7 @@ class Zoo():
             print(f"Ошибка при сохранении")
 
 
-    def add_animal(self,name, age, special_attribute,animal_type):
+    def add_animal(self,name, age, special_attribute, animal_type):
         new_animal = {
             "name": name,
             "age": age,
@@ -126,23 +152,14 @@ class Zoo():
         }
         self.animals_store.append(new_animal)
         self.__save_animals_store()
-        if animal_type == "Bird":
-            new_animal = Bird(name, age, special_attribute)
-        elif animal_type == "Mammal":
-            new_animal = Mammal(name, age, special_attribute)
-        else: new_animal = Reptile(name, age, special_attribute)
 
     def add_employee(self, name, age, profession):
         new_employee = {
             "name": name,
             "age": age,
-            "profession": profession
+            "profession" : profession
         }
 
         self.employee_store.append(new_employee)
         self.__save_employee_store()
-        if profession == "Vet":
-            new_employee = Veterinarian(name, age)
-        elif profession == "Zoologist":
-            new_employee = Zoologist(name, age)
-        else: new_employee =Zookeeper(name, age)
+

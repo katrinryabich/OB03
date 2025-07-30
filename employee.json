@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Алексей",
+    "age": 35,
+    "profession": "Vet"
+  },
+  {
+    "name": "Мария",
+    "age": 28,
+    "profession": "Zoologist"
+  },
+  {
+    "name": "Иван",
+    "age": 42,
+    "profession": "Zookeeper"
+  },
+  {
+    "name": "Елена",
+    "age": 31,
+    "profession": "Vet"
+  },
+  {
+    "name": "Дмитрий",
+    "age": 25,
+    "profession": "Zookeeper"
+  }
+]

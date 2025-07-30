@@ -4,5 +4,11 @@ for animal in animals:
     animal.make_sound()
 
 admin = Zoo()
-#admin.add_animal("Kali","9 months","0,5 m", "Bird")
+first_bird  = admin.add_animal("Kali","9 months","0,5 m", "Bird")
+#admin.add_employee("Стас", 22, "Zookeeper")
+
+print(admin.animals_store)
+print(admin.employee_store)
+if admin.animals_store:
+    admin.animals_store[0].make_sound()
 
