@@ -4,7 +4,7 @@ for animal in animals:
     animal.make_sound()
 
 admin = Zoo()
-#first_bird  = admin.add_animal("Kali","9 months","0,5 m", "Bird")
+first_bird  = admin.add_animal("Kali","9 months","1 m", "bird")
 #admin.add_employee("Стас", 22, "Zookeeper")
 
 # print(admin.animals_store)
@@ -12,4 +12,5 @@ admin = Zoo()
 
 
 admin.animals_store[4].make_sound()
+admin.employee_store[2].feeding()
 
