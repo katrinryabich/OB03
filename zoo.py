@@ -173,7 +173,7 @@ class Zoo():
                 }
                 employee_data.append(animal_data)
             with open(self.employee_path,'w',encoding='utf-8') as anst:
-                json.dump(self.employee_store,anst, indent=2, ensure_ascii=False)
+                json.dump(employee_data,anst, indent=2, ensure_ascii=False)
         except Exception:
             print(f"Ошибка при сохранении")
 
