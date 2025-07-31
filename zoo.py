@@ -85,38 +85,21 @@ class Zoo():
         self.employee_path = Path(employee_path)
         self.animals_store = self.__load_animals_store()
         self.employee_store = self.__load_employee_store()
-        self.__load_animals_store()
-
-    def __load_animals_store(self):
-        if self.animals_path.exists():
-            with open(self.animals_path, 'r', encoding ='utf-8') as anst:
-                employee_store = json.load(anst)
-                return []
-        else:
-            return []
-
-
-    def __load_employee_store(self):
-        if self.employee_path.exists():
-            with open(self.employee_path, 'r', encoding='utf-8') as empst:
-                return json.load(empst)
-        else: return []
 
     def __make_animal_object(self, animal_store):
         name = animal_store["name"]
         age = animal_store["age"]
         special_attribute = animal_store["special_attribute"]
         animal_type = animal_store.get("type")
-        if animal_type == "Bird":
+        if animal_type == "bird":
             return Bird(name, age, special_attribute)
-        elif animal_type == "Mammal":
+        elif animal_type == "mammal":
             return Mammal(name, age, special_attribute)
-        elif animal_type == "Reptile":
+        elif animal_type == "reptile":
             return Reptile(name, age, special_attribute)
         else: raise ValueError(f"Неудалось установить тип животного: {animal_type}")
 
-
-    def make_employee_object(self, employee_store):
+    def __make_employee_object(self, employee_store):
         name = employee_store["name"]
         age = employee_store["age"]
         profession = employee_store["profession"]
@@ -128,7 +111,25 @@ class Zoo():
         elif emplioyee_type == "Zookeeper":
             return Zookeeper(name, age)
         else:
-            raise ValueError(f"Незнакомая профессия: {emplioyee_type}")
+            raise ValueError(f"Неуставновленная профессия: {emplioyee_type}")
+
+    def __load_animals_store(self):
+        if self.animals_path.exists():
+            with open(self.animals_path, 'r', encoding ='utf-8') as anst:
+                animal_store = json.load(anst)
+                return [self.__make_animal_object(animal) for animal in animal_store]
+        else:
+            return []
+
+    def __load_employee_store(self):
+        if self.employee_path.exists():
+            with open(self.employee_path, 'r', encoding='utf-8') as empst:
+                employee_store = json.load(empst)
+                return [self.__make_employee_object(emp) for emp in employee_store]
+        else:
+            return []
+
+
     def __save_animals_store(self):
         try:
             with open(self.animals_path,'w',encoding='utf-8') as anst:
@@ -148,7 +149,8 @@ class Zoo():
         new_animal = {
             "name": name,
             "age": age,
-            "special_attribute": special_attribute
+            "special_attribute": special_attribute,
+            "type": animal_type
         }
         self.animals_store.append(new_animal)
         self.__save_animals_store()

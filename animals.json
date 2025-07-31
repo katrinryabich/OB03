@@ -2,6 +2,49 @@
   {
     "name": "Kali",
     "age": "9 months",
-    "special_attribute": "0,5 m"
+    "special_attribute": "0.5 m",
+    "type": "mammal"
+  },
+  {
+    "name": "Rex",
+    "age": "3 years",
+    "special_attribute": "1.2 m",
+    "type": "mammal"
+  },
+  {
+    "name": "Polly",
+    "age": "5 years",
+    "special_attribute": "0.3 m",
+    "type": "bird"
+  },
+  {
+    "name": "Spike",
+    "age": "4 years",
+    "special_attribute": "green",
+    "type": "reptile"
+  },
+  {
+    "name": "Aero",
+    "age": "2 years",
+    "special_attribute": "0.8 m",
+    "type": "bird"
+  },
+  {
+    "name": "Tiny",
+    "age": "6 months",
+    "special_attribute": "0.1 m",
+    "type": "mammal"
+  },
+  {
+    "name": "Slither",
+    "age": "8 years",
+    "special_attribute": "brown",
+    "type": "reptile"
+  },
+  {
+    "name": "Kali",
+    "age": "9 months",
+    "special_attribute": "0,5 m",
+    "type": "bird"
   }
 ]
