@@ -47,10 +47,9 @@ class Reptile(Animal):
         print("Есть рептилии со смешанным типом питания, которые употребляют как растительную, так и животную пищу")
 
 class Employee():
-    def __init__(self, name, age, profession):
+    def __init__(self, name, age):
         self.name = name
         self.age = age
-        self.profession = profession
 
 class Zookeeper(Employee):
     def __init__(self, name, age):
